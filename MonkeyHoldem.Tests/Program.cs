@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MonkeyHoldem.Tests
@@ -11,7 +12,8 @@ namespace MonkeyHoldem.Tests
         {
             try
             {
-                //diamonds (♦), clubs (♣),hearts (♥), spades (♠)
+                Console.OutputEncoding = Encoding.UTF8;
+
                 var handTextList = new[]
                 {
                     "♦A♣T♥K♠Q♦3♦6♦9",

@@ -27,7 +27,7 @@ namespace MonkeyHoldem
         {
             var bestHand = new List<int>();
 
-            var cardsType = CardsType.GaoPai;
+            var cardsType = CardsType.Invalid;
             hand.Sort();
             //BubbleSort(hand);
 

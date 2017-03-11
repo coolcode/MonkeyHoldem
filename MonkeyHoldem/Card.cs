@@ -130,7 +130,8 @@ namespace MonkeyHoldem
         SanTiao = 4,
         LiangDui = 3,
         YiDui = 2,
-        GaoPai = 1
+        GaoPai = 1,
+        Invalid = 0
     }
 
     public class EvalResult
