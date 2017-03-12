@@ -7,7 +7,7 @@ namespace MonkeyHoldem
 {
     public class Evaluation
     {
-        private readonly static Random rand = new Random(1024);
+        private readonly static Random rand = new Random();
         private const int TotalCards = 52;
         private Card[] AllCards = new Card[TotalCards];
         private Dictionary<Card, int> CardIndexMap = new Dictionary<Card, int>(TotalCards);

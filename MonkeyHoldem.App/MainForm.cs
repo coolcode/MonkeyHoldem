@@ -30,6 +30,18 @@ namespace MonkeyHoldem.App
             };
 
             Load += MainForm_Load;
+
+            foreach(var listBox in suitsBox.Union(numbersBox))
+            {
+                listBox.SelectedIndexChanged += ListBox_SelectedIndexChanged;
+            }
+        }
+
+        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var listBox = (ListBox)sender;
+            var index = int.Parse(  listBox.Name.Last().ToString());
+            numDeskCards.Value = index;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -77,13 +89,13 @@ namespace MonkeyHoldem.App
                 lbNum.ValueMember = "Value";
                 lbNum.DisplayMember = "Text";
             }
-
         }
 
         private void btnQuery_Click(object sender, EventArgs e)
         {
             try
             {
+                DisplayMessage($"Searching...");
                 var deskCardsCount = (int)numDeskCards.Value;
                 var playersCount = (int)numPlayers.Value;
 
@@ -109,29 +121,47 @@ namespace MonkeyHoldem.App
                     }
                 }
 
-                var evaluation = new Evaluation();
-                var sw = Stopwatch.StartNew();
-                var sr = evaluation.Solve(ownHand, deskHand, playersCount);
-                sw.Stop();
-                //var evalResult = evaluation.Eval(hand);
-                //DisplayMessage($"{evalResult}");
-                DisplayMessage($"{sr}");
-                DisplayMessage($"Time span: {sw.Elapsed}");
+                var task = Task.Factory.StartNew(()=>
+                {
+                    var evaluation = new Evaluation();
+                    var sw = Stopwatch.StartNew();
+                    var sr = evaluation.Solve(ownHand, deskHand, playersCount);
+                    sw.Stop();
+                    //var evalResult = evaluation.Eval(hand);
+                    //DisplayMessage($"{evalResult}");
+                    DisplayMessage($"{sr}");
+                    DisplayMessage($"Time span: {sw.Elapsed}", @break: true);
+                });
 
+               // task.Start();
             }
             catch(Exception ex)
             {
-                DisplayMessage($"{ex}");
+                DisplayMessage($"{ex}", @break:true);
             }
-            DisplayMessage($"-----------------------");
             
         }
 
-        private void DisplayMessage(string text)
+        private void DisplayMessage(string text, bool @break=false)
         {
-            rtbMessage.Text += $"{DateTime.Now}: {text}\r\n";
-            rtbMessage.SelectionStart = rtbMessage.Text.Length;
-            rtbMessage.ScrollToCaret(); 
+            MethodInvoker updateUI =  ()=>
+            {
+                rtbMessage.Text += $"{DateTime.Now}: {text}\r\n";
+                if (@break)
+                {
+                    rtbMessage.Text += ($"------------------------------\r\n");
+                }
+                rtbMessage.SelectionStart = rtbMessage.Text.Length;
+                rtbMessage.ScrollToCaret();
+            };
+
+            if (rtbMessage.InvokeRequired)
+            {
+                this.Invoke(updateUI);
+            }else
+            {
+                updateUI();
+            }
         }
     }
 

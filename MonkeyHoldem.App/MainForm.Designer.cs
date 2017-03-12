@@ -48,46 +48,57 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numDeskCards = new System.Windows.Forms.NumericUpDown();
             this.numPlayers = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numDeskCards)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayers)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbSuit1
             // 
+            this.lbSuit1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lbSuit1.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbSuit1.ForeColor = System.Drawing.Color.Lime;
             this.lbSuit1.FormattingEnabled = true;
             this.lbSuit1.ItemHeight = 24;
-            this.lbSuit1.Location = new System.Drawing.Point(13, 12);
+            this.lbSuit1.Location = new System.Drawing.Point(10, 17);
             this.lbSuit1.Name = "lbSuit1";
             this.lbSuit1.Size = new System.Drawing.Size(30, 100);
             this.lbSuit1.TabIndex = 0;
             // 
             // lbNum1
             // 
+            this.lbNum1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lbNum1.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbNum1.ForeColor = System.Drawing.Color.Lime;
             this.lbNum1.FormattingEnabled = true;
             this.lbNum1.ItemHeight = 16;
-            this.lbNum1.Location = new System.Drawing.Point(50, 12);
+            this.lbNum1.Location = new System.Drawing.Point(47, 17);
             this.lbNum1.Name = "lbNum1";
             this.lbNum1.Size = new System.Drawing.Size(30, 212);
             this.lbNum1.TabIndex = 1;
             // 
             // lbNum2
             // 
+            this.lbNum2.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lbNum2.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbNum2.ForeColor = System.Drawing.Color.Lime;
             this.lbNum2.FormattingEnabled = true;
             this.lbNum2.ItemHeight = 16;
-            this.lbNum2.Location = new System.Drawing.Point(141, 12);
+            this.lbNum2.Location = new System.Drawing.Point(138, 17);
             this.lbNum2.Name = "lbNum2";
             this.lbNum2.Size = new System.Drawing.Size(30, 212);
             this.lbNum2.TabIndex = 3;
             // 
             // lbSuit2
             // 
+            this.lbSuit2.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.lbSuit2.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbSuit2.ForeColor = System.Drawing.Color.Lime;
             this.lbSuit2.FormattingEnabled = true;
             this.lbSuit2.ItemHeight = 24;
-            this.lbSuit2.Location = new System.Drawing.Point(104, 12);
+            this.lbSuit2.Location = new System.Drawing.Point(101, 17);
             this.lbSuit2.Name = "lbSuit2";
             this.lbSuit2.Size = new System.Drawing.Size(30, 100);
             this.lbSuit2.TabIndex = 2;
@@ -97,7 +108,7 @@
             this.lbNum3.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbNum3.FormattingEnabled = true;
             this.lbNum3.ItemHeight = 16;
-            this.lbNum3.Location = new System.Drawing.Point(234, 12);
+            this.lbNum3.Location = new System.Drawing.Point(311, 24);
             this.lbNum3.Name = "lbNum3";
             this.lbNum3.Size = new System.Drawing.Size(30, 212);
             this.lbNum3.TabIndex = 5;
@@ -107,7 +118,7 @@
             this.lbSuit3.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSuit3.FormattingEnabled = true;
             this.lbSuit3.ItemHeight = 24;
-            this.lbSuit3.Location = new System.Drawing.Point(197, 12);
+            this.lbSuit3.Location = new System.Drawing.Point(274, 24);
             this.lbSuit3.Name = "lbSuit3";
             this.lbSuit3.Size = new System.Drawing.Size(30, 100);
             this.lbSuit3.TabIndex = 4;
@@ -117,7 +128,7 @@
             this.lbNum4.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbNum4.FormattingEnabled = true;
             this.lbNum4.ItemHeight = 16;
-            this.lbNum4.Location = new System.Drawing.Point(331, 12);
+            this.lbNum4.Location = new System.Drawing.Point(408, 24);
             this.lbNum4.Name = "lbNum4";
             this.lbNum4.Size = new System.Drawing.Size(30, 212);
             this.lbNum4.TabIndex = 7;
@@ -127,7 +138,7 @@
             this.lbSuit4.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSuit4.FormattingEnabled = true;
             this.lbSuit4.ItemHeight = 24;
-            this.lbSuit4.Location = new System.Drawing.Point(294, 12);
+            this.lbSuit4.Location = new System.Drawing.Point(371, 24);
             this.lbSuit4.Name = "lbSuit4";
             this.lbSuit4.Size = new System.Drawing.Size(30, 100);
             this.lbSuit4.TabIndex = 6;
@@ -137,7 +148,7 @@
             this.lbNum7.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbNum7.FormattingEnabled = true;
             this.lbNum7.ItemHeight = 16;
-            this.lbNum7.Location = new System.Drawing.Point(614, 12);
+            this.lbNum7.Location = new System.Drawing.Point(691, 24);
             this.lbNum7.Name = "lbNum7";
             this.lbNum7.Size = new System.Drawing.Size(30, 212);
             this.lbNum7.TabIndex = 13;
@@ -147,7 +158,7 @@
             this.lbSuit7.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSuit7.FormattingEnabled = true;
             this.lbSuit7.ItemHeight = 24;
-            this.lbSuit7.Location = new System.Drawing.Point(577, 12);
+            this.lbSuit7.Location = new System.Drawing.Point(654, 24);
             this.lbSuit7.Name = "lbSuit7";
             this.lbSuit7.Size = new System.Drawing.Size(30, 100);
             this.lbSuit7.TabIndex = 12;
@@ -157,7 +168,7 @@
             this.lbNum6.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbNum6.FormattingEnabled = true;
             this.lbNum6.ItemHeight = 16;
-            this.lbNum6.Location = new System.Drawing.Point(517, 12);
+            this.lbNum6.Location = new System.Drawing.Point(594, 24);
             this.lbNum6.Name = "lbNum6";
             this.lbNum6.Size = new System.Drawing.Size(30, 212);
             this.lbNum6.TabIndex = 11;
@@ -167,7 +178,7 @@
             this.lbSuit6.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSuit6.FormattingEnabled = true;
             this.lbSuit6.ItemHeight = 24;
-            this.lbSuit6.Location = new System.Drawing.Point(480, 12);
+            this.lbSuit6.Location = new System.Drawing.Point(557, 24);
             this.lbSuit6.Name = "lbSuit6";
             this.lbSuit6.Size = new System.Drawing.Size(30, 100);
             this.lbSuit6.TabIndex = 10;
@@ -177,7 +188,7 @@
             this.lbNum5.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbNum5.FormattingEnabled = true;
             this.lbNum5.ItemHeight = 16;
-            this.lbNum5.Location = new System.Drawing.Point(424, 12);
+            this.lbNum5.Location = new System.Drawing.Point(501, 24);
             this.lbNum5.Name = "lbNum5";
             this.lbNum5.Size = new System.Drawing.Size(30, 212);
             this.lbNum5.TabIndex = 9;
@@ -187,14 +198,14 @@
             this.lbSuit5.Font = new System.Drawing.Font("SimSun", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSuit5.FormattingEnabled = true;
             this.lbSuit5.ItemHeight = 24;
-            this.lbSuit5.Location = new System.Drawing.Point(387, 12);
+            this.lbSuit5.Location = new System.Drawing.Point(464, 24);
             this.lbSuit5.Name = "lbSuit5";
             this.lbSuit5.Size = new System.Drawing.Size(30, 100);
             this.lbSuit5.TabIndex = 8;
             // 
             // btnQuery
             // 
-            this.btnQuery.Location = new System.Drawing.Point(517, 252);
+            this.btnQuery.Location = new System.Drawing.Point(613, 255);
             this.btnQuery.Name = "btnQuery";
             this.btnQuery.Size = new System.Drawing.Size(121, 23);
             this.btnQuery.TabIndex = 14;
@@ -205,7 +216,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 257);
+            this.label1.Location = new System.Drawing.Point(13, 260);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 16;
@@ -213,6 +224,9 @@
             // 
             // rtbMessage
             // 
+            this.rtbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbMessage.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbMessage.ForeColor = System.Drawing.Color.LawnGreen;
@@ -220,14 +234,14 @@
             this.rtbMessage.Name = "rtbMessage";
             this.rtbMessage.ReadOnly = true;
             this.rtbMessage.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbMessage.Size = new System.Drawing.Size(629, 202);
+            this.rtbMessage.Size = new System.Drawing.Size(719, 202);
             this.rtbMessage.TabIndex = 17;
             this.rtbMessage.Text = "";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(212, 258);
+            this.label2.Location = new System.Drawing.Point(212, 261);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 12);
             this.label2.TabIndex = 19;
@@ -235,7 +249,7 @@
             // 
             // numDeskCards
             // 
-            this.numDeskCards.Location = new System.Drawing.Point(289, 252);
+            this.numDeskCards.Location = new System.Drawing.Point(289, 255);
             this.numDeskCards.Name = "numDeskCards";
             this.numDeskCards.Size = new System.Drawing.Size(120, 21);
             this.numDeskCards.TabIndex = 20;
@@ -247,7 +261,7 @@
             // 
             // numPlayers
             // 
-            this.numPlayers.Location = new System.Drawing.Point(72, 252);
+            this.numPlayers.Location = new System.Drawing.Point(72, 255);
             this.numPlayers.Name = "numPlayers";
             this.numPlayers.Size = new System.Drawing.Size(120, 21);
             this.numPlayers.TabIndex = 21;
@@ -257,11 +271,35 @@
             0,
             0});
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbSuit2);
+            this.groupBox1.Controls.Add(this.lbSuit1);
+            this.groupBox1.Controls.Add(this.lbNum1);
+            this.groupBox1.Controls.Add(this.lbNum2);
+            this.groupBox1.ForeColor = System.Drawing.Color.LimeGreen;
+            this.groupBox1.Location = new System.Drawing.Point(15, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(179, 239);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Own Hand";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(262, 7);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(472, 239);
+            this.groupBox2.TabIndex = 23;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Desk Hand";
+            // 
             // MainForm
             // 
+            this.AcceptButton = this.btnQuery;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 500);
+            this.ClientSize = new System.Drawing.Size(743, 500);
             this.Controls.Add(this.numPlayers);
             this.Controls.Add(this.numDeskCards);
             this.Controls.Add(this.label2);
@@ -278,14 +316,13 @@
             this.Controls.Add(this.lbSuit4);
             this.Controls.Add(this.lbNum3);
             this.Controls.Add(this.lbSuit3);
-            this.Controls.Add(this.lbNum2);
-            this.Controls.Add(this.lbSuit2);
-            this.Controls.Add(this.lbNum1);
-            this.Controls.Add(this.lbSuit1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numDeskCards)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlayers)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,6 +350,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numDeskCards;
         private System.Windows.Forms.NumericUpDown numPlayers;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 
