@@ -32,6 +32,25 @@ namespace MonkeyHoldem
             }
         }
 
+        public IEnumerable<SolvedResult> Solve(int players=6)
+        {
+            for(var i = 0; i < AllCards.Length-1; i++)
+            {
+                for(var j = i+1; j < AllCards.Length; j++)
+                {
+                    var hand = new Hand(new[] { AllCards[i], AllCards[j] });
+                    var sr = Solve(hand, new Hand(), players);
+                    sr.Id = hand.Uid;
+
+                    Console.WriteLine($"solving {hand}...");
+
+                    yield return sr;
+                }
+            }
+
+            yield break;
+        }
+
         public SolvedResult Solve(Hand ownHand, Hand deskHand, int players)
         {
             var hand = new Hand();

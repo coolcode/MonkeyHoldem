@@ -74,6 +74,14 @@ namespace MonkeyHoldem
     {
         private string text = string.Empty;
 
+        public ulong Uid
+        {
+            get
+            {
+                return (ulong)(this[0].GetHashCode() * 1000 + this[1].GetHashCode());
+            }
+        }
+
         public Hand()
         {
 
@@ -129,7 +137,7 @@ namespace MonkeyHoldem
 
         public override string ToString()
         {
-            return text;
+            return string.Join("", this);
         }
     }
 
@@ -198,6 +206,8 @@ namespace MonkeyHoldem
 
     public class SolvedResult
     {
+        public ulong Id { get; set; }
+
         public double WinRate { get; set; }
 
         public Dictionary<CardsType, double> CardsTypeProbabilities = new Dictionary<CardsType, double>(10);
