@@ -7,34 +7,159 @@ namespace MonkeyHoldem
 {
     public class Evaluation
     {
-        public static void BubbleSort<T>(List<T> arrayList) where T : IComparable<T>
+        private readonly static Random rand = new Random(1024);
+        private const int TotalCards = 52;
+        private Card[] AllCards = new Card[TotalCards];
+        private Dictionary<Card, int> CardIndexMap = new Dictionary<Card, int>(TotalCards);
+
+        public Evaluation()
         {
-            for (int i = 0; i < arrayList.Count - 1; i++)
+            Init();
+        }
+
+        public void Init()
+        {
+            var i = 0;
+            for (var suit = Suits.Diamond; suit <= Suits.Spade; suit++)
             {
-                for (int j = 0; j < arrayList.Count - i - 1; j++)
+                for (var n = 2; n <= Numbers.A; n++)
                 {
-                    if (arrayList[j].CompareTo(arrayList[j + 1]) > 0)
-                    {
-                        T temp = arrayList[j];
-                        arrayList[j] = arrayList[j + 1];
-                        arrayList[j + 1] = temp;
-                    }
+                    var card = new Card { Suit = suit, Number = n };
+                    AllCards[i] = card;
+                    CardIndexMap[card] = i;
+                    i++;
                 }
             }
         }
 
-        public static EvalResult Eval(Hand hand)
+        public SolvedResult Solve(Hand ownHand, Hand deskHand, int players)
+        {
+            var hand = new Hand();
+            hand.AddRange(ownHand);
+            hand.AddRange(deskHand);
+
+            var ownSimHand = new Hand(hand);
+
+            var erList = new List<EvalResult>();
+            var simIndex = 0;
+            var simCount = 10000;
+            var winCount = 0;
+            while (simIndex++ < simCount)
+            {
+                if (hand.Count < 7)
+                {
+                    ownSimHand = RandomHand(hand);
+                }
+                var ownEr = Eval(ownSimHand);
+                erList.Add(ownEr);
+
+                var filters = new Hand(ownSimHand);
+
+                //win or not
+                var lose = false;
+                for (var i = 0; i < players - 1; i++)
+                {
+                    var oppSimHand = RandomHand(deskHand, filters);
+                    var oppEr = Eval(oppSimHand);
+
+                    if (oppEr.Value > ownEr.Value)
+                    {
+                        lose = true;
+                        break;
+                    }
+
+                    filters.AddRange(oppSimHand);
+                }
+
+                if (!lose)
+                {
+                    winCount++;
+                }
+            }
+
+            var sr = new SolvedResult();
+            sr.WinRate = winCount / (double)simCount;
+            sr.CardsTypeProbabilities = erList.GroupBy(c => c.Type)
+                .Select(g => new { Prob = g.Count() / (double)simCount, Type = g.Key })
+                .ToDictionary(c => c.Type, c => c.Prob);
+
+            return sr;
+        }
+
+        public Hand[] RandomHand(Hand deskHand, Hand filterCards, int players)
+        {
+            var fc = new List<Card>(filterCards);
+            var simHands = new List<Hand>();
+
+            for (var i = 0; i < players; i++)
+            {
+                //sim a hand
+                var simHand = new Hand(deskHand);
+                while (simHand.Count < 7)
+                {
+                    var index = rand.Next(0, TotalCards);
+                    var randCard = AllCards[index];
+                    if (fc.Contains(randCard))
+                    {
+                        continue;
+                    }
+
+                    simHand.Add(randCard);
+
+                    fc.Add(randCard);
+                }
+
+                simHands.Add(simHand);
+            }
+
+            return simHands.ToArray();
+        }
+
+        public Hand RandomHand(Hand ownHand, Hand filterCards = null)
+        {
+            var fc = new List<Card>(filterCards ?? ownHand);
+            var indexRange = Enumerable.Range(0, TotalCards)
+                .Except(fc.Select(c => CardIndexMap[c]))
+                .ToList();
+
+            //sim a hand
+            var simHand = new Hand(ownHand);
+            while (simHand.Count < 7)
+            {
+                //var index = rand.Next(0, TotalCards);
+                //var randCard = AllCards[index];
+                //if (fc.Contains(randCard))
+                //{
+                //    continue;
+                //}
+                //simHand.Add(randCard);
+
+                //fc.Add(randCard);
+
+                var index = rand.Next(0, indexRange.Count);
+                var randCard = AllCards[indexRange[index]];
+
+                simHand.Add(randCard);
+
+                indexRange.RemoveAt(index);
+            }
+
+            return simHand;
+        }
+
+        public EvalResult Eval(Hand hand)
         {
             var bestHand = new List<int>();
 
             var cardsType = CardsType.Invalid;
-            hand.Sort();
-            //BubbleSort(hand);
+
+            var evalHand = new Hand(hand);
+            evalHand.Sort();
 
             var suitsCount = new int[4];
             var numbersCount = new Dictionary<int, int>(13);
 
-            foreach (var item in hand)
+            foreach (var item in evalHand)
             {
                 suitsCount[item.Suit]++;
                 var numCount = 0;
@@ -92,7 +217,7 @@ namespace MonkeyHoldem
 
             if (counts[4] == 1)
             {
-                cardsType = CardsType.SiTiao;
+                cardsType = CardsType.FourOfaKind;
 
                 foreach (var item in numbersCount)
                 {
@@ -108,7 +233,7 @@ namespace MonkeyHoldem
             }
             else if (counts[3] == 1 && counts[2] > 0)
             {
-                cardsType = CardsType.ManTangHon;
+                cardsType = CardsType.FullHouse;
 
                 var threeOfaKind = numbersCount.Where(c => c.Value == 3)
                     .Select(c => c.Key)
@@ -122,20 +247,20 @@ namespace MonkeyHoldem
             }
             else if (straight && suitsCount.Any(c => c >= 5))
             {
-                cardsType = CardsType.TongHuaShun;
+                cardsType = CardsType.StraightFlush;
 
                 bestHand.AddRange(card5);
             }
             else if (suitsCount.Any(c => c >= 5))
             {
-                cardsType = CardsType.TongHua;
+                cardsType = CardsType.Flush;
 
                 for (var suit = Suits.Diamond; suit <= Suits.Spade; suit++)
                 {
                     if (suitsCount[suit] >= 5)
                     {
                         bestHand = (
-                            hand.Where(c => c.Suit == suit)
+                            evalHand.Where(c => c.Suit == suit)
                                 .Select(c => c.Number)
                                 .OrderByDescending(c => c)
                                 .Take(5)
@@ -147,12 +272,12 @@ namespace MonkeyHoldem
             }
             else if (straight)
             {
-                cardsType = CardsType.ShunZi;
+                cardsType = CardsType.Straight;
                 bestHand.AddRange(card5);
             }
             else if (counts[3] >= 1)
             {
-                cardsType = CardsType.SanTiao;
+                cardsType = CardsType.ThreeOfaKind;
 
                 var threeOfaKind = numbersCount.Where(c => c.Value == 3)
                     .Select(c => c.Key)
@@ -177,7 +302,7 @@ namespace MonkeyHoldem
             else if (counts[2] >= 2)
             {
                 //two pairs
-                cardsType = CardsType.LiangDui;
+                cardsType = CardsType.TwoPairs;
 
                 var pairs = numbersCount.Where(c => c.Value == 2)
                     .Select(c => c.Key)
@@ -193,7 +318,7 @@ namespace MonkeyHoldem
             }
             else if (counts[2] == 1)
             {
-                cardsType = CardsType.YiDui;
+                cardsType = CardsType.OnePair;
 
                 var pair = numbersCount.Where(c => c.Value == 2)
                     .Select(c => c.Key)
@@ -209,7 +334,7 @@ namespace MonkeyHoldem
             }
             else
             {
-                cardsType = CardsType.GaoPai;
+                cardsType = CardsType.HighCard;
                 bestHand = numbers.OrderByDescending(c => c)
                     .Take(5)
                     .ToList();

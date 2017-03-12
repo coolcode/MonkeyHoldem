@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MonkeyHoldem
@@ -22,6 +23,51 @@ namespace MonkeyHoldem
         {
             return Number.CompareTo(other.Number);
         }
+
+        public override int GetHashCode()
+        {
+            return Suit * 100 + Number;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            return ((Card)obj).GetHashCode() == GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            var suitmap = new Dictionary<int, string>
+            {
+                {0,"♦"},
+                {1,"♣" },
+                {2,"♥"},
+                {3,"♠"}
+            };
+
+            var nummap = new Dictionary<int, string>
+            {
+                {2,"2"},
+                {3,"3"},
+                {4,"4"},
+                {5,"5"},
+                {6,"6"},
+                {7,"7"},
+                {8,"8"},
+                {9,"9"},
+                {10,"T"},
+                {11,"J"},
+                {12,"Q"},
+                {13,"K"},
+                {14,"A"},
+            };
+
+            return $"{suitmap[Suit]}{nummap[Number]}";
+        }
     }
 
     public class Hand : List<Card>
@@ -33,6 +79,10 @@ namespace MonkeyHoldem
 
         }
 
+        public Hand(IEnumerable<Card> cards)
+        {
+            AddRange(cards);
+        }
 
         public Hand(string text)
         {
@@ -64,13 +114,14 @@ namespace MonkeyHoldem
                 {'A' , Numbers.A},
             };
 
-            for (var i = 0; i < text.Length-1; i=i+2)
+            for (var i = 0; i < text.Length - 1; i = i + 2)
             {
                 //TODO: if text.length is odds
-                var card = new Card {
+                var card = new Card
+                {
                     Suit = suitmap[text[i]],
                     Number = nummap[text[i + 1]]
-                    };
+                };
 
                 Add(card);
             }
@@ -122,15 +173,15 @@ namespace MonkeyHoldem
     /// </summary>
     public enum CardsType
     {
-        TongHuaShun = 9,
-        SiTiao = 8,
-        ManTangHon = 7,
-        TongHua = 6,
-        ShunZi = 5,
-        SanTiao = 4,
-        LiangDui = 3,
-        YiDui = 2,
-        GaoPai = 1,
+        StraightFlush = 9,
+        FourOfaKind = 8,
+        FullHouse = 7,
+        Flush = 6,
+        Straight = 5,
+        ThreeOfaKind = 4,
+        TwoPairs = 3,
+        OnePair = 2,
+        HighCard = 1,
         Invalid = 0
     }
 
@@ -141,7 +192,26 @@ namespace MonkeyHoldem
 
         public override string ToString()
         {
-            return $"(t:{Type}, v:{Value})";
+            return $"(t:{Type,13}, v:{Value})";
+        }
+    }
+
+    public class SolvedResult
+    {
+        public double WinRate { get; set; }
+
+        public Dictionary<CardsType, double> CardsTypeProbabilities = new Dictionary<CardsType, double>(10);
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"win%: {WinRate.ToString("p2")}");
+            foreach (var item in CardsTypeProbabilities.OrderByDescending(c=> c.Value))
+            {
+                sb.AppendLine($"{item.Key}'s Prob%: {item.Value.ToString("p2")}");
+            }
+
+            return sb.ToString();
         }
     }
 }

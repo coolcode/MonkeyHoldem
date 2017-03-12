@@ -12,6 +12,8 @@ namespace MonkeyHoldem.Tests
         {
             try
             {
+                var evaluation = new Evaluation();
+
                 Console.OutputEncoding = Encoding.UTF8;
 
                 var handTextList = new[]
@@ -33,7 +35,7 @@ namespace MonkeyHoldem.Tests
                 foreach (var text in handTextList)
                 {
                     var hand = new Hand(text);
-                    var ev = Evaluation.Eval(hand);
+                    var ev = evaluation.Eval(hand);
                     Console.WriteLine($"{hand}: {ev}");
                 }
             }
